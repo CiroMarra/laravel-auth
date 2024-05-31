@@ -5,6 +5,8 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\project;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class ProjectControl extends Controller
 {
@@ -27,7 +29,9 @@ class ProjectControl extends Controller
      */
     public function create()
     {
-        //
+        {
+            return view('admin.projects.create');
+        }
     }
 
     /**
@@ -38,7 +42,26 @@ class ProjectControl extends Controller
      */
     public function store(Request $request)
     {
-        //
+    
+         $validated = $request->validate(
+             [
+                 'name' => 'required|min:5|max:150|unique:projects,name',
+                 'summary' => 'nullable|min:10',
+                 'client_name' => 'min:3|max:10'
+             ]
+         );
+
+
+        $formData = $request->all();
+        $newProject = new project();
+        $newProject->fill($formData);
+        $newProject->slug = Str::slug($newProject->name, '-');
+        $newProject->save();
+
+        return redirect()->route('admin.projects.show', ['project' => $newProject->id]);
+
+        
+
     }
 
     /**
@@ -58,9 +81,9 @@ class ProjectControl extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(project $project)
     {
-        //
+        return view('admin.projects.edit', compact('project'));
     }
 
     /**
@@ -70,9 +93,26 @@ class ProjectControl extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, project $project)
     {
-        //
+        $validated = $request->validate(
+            [
+                'name' => [
+                    'required',
+                    'min:5',
+                    'max:150',
+                    Rule::unique('projects')->ignore($project)
+                ],
+                'summary' => 'min:10|max:11'
+            ]
+        );
+
+
+        $formData = $request->all();
+        $project->slug = Str::slug($formData['name'], '-');
+        $project->update($formData);
+
+        return redirect()->route('admin.projects.show', ['project' => $project->id]);
     }
 
     /**
@@ -81,8 +121,10 @@ class ProjectControl extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(project $project)
     {
-        //
+        $project->delete();
+
+        return redirect()->route('admin.projects.index');
     }
 }

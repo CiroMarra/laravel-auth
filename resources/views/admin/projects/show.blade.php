@@ -15,7 +15,7 @@
         <strong>Updated at</strong>: {{ $project->updated_at }}
     </div>
     <div>
-        <strong>Symmary</strong>: 
+        <strong>Summary</strong>: 
         <div class="py-5">{{ $project->summary }}</div>
     </div>
 
