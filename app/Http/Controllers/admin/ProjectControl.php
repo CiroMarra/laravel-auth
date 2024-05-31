@@ -46,8 +46,18 @@ class ProjectControl extends Controller
          $validated = $request->validate(
              [
                  'name' => 'required|min:5|max:150|unique:projects,name',
-                 'summary' => 'nullable|min:10',
-                 'client_name' => 'min:3|max:10'
+                 'summary' => 'min:10|max:500',
+                 'client_name' => 'min:3|max:250'
+             ],
+             [
+                'name.required' => 'devi dare un nome al progetto',
+                'name.unique' => 'il nome del progetto è già in uso',
+                'name.min' => 'il nome del progetto deve avere minimo 5 caratteri',
+                'name.max' => 'il nome del progetto deve avere un massimo di 150 caratteri',
+                'summary.min' => 'il summary del progetto deve avere una descrizione minima di 10 caratteri',
+                'summary.max' => 'il summary del progetto deve avere una descrizione massima di 500 caratteri',
+                'client_name.min' => 'il nome del cliente deve avere un minimo di 3 caratteri',
+                'client_name.max' => 'il nome del cliente deve avere un massimo di 150 caratteri'
              ]
          );
 
@@ -96,16 +106,32 @@ class ProjectControl extends Controller
     public function update(Request $request, project $project)
     {
         $validated = $request->validate(
-            [
-                'name' => [
-                    'required',
-                    'min:5',
-                    'max:150',
-                    Rule::unique('projects')->ignore($project)
+                [
+                    'name' => [
+                        'required',
+                        'min:5',
+                        'max:150',
+                        Rule::unique('projects')->ignore($project)
+                    ],
+                    'summary' => 'min:10|max:500',
+                    'client_name' => 'min:3|max:250'
                 ],
-                'summary' => 'min:10|max:11'
-            ]
-        );
+                [
+                   'name.required' => 'devi dare un nome al progetto',
+                   'name.unique' => 'il nome del progetto è già in uso',
+                   'name.min' => 'il nome del progetto deve avere minimo 5 caratteri',
+                   'name.max' => 'il nome del progetto deve avere un massimo di 150 caratteri',
+                   'summary.min' => 'il summary del progetto deve avere una descrizione minima di 10 caratteri',
+                   'summary.max' => 'il summary del progetto deve avere una descrizione massima di 500 caratteri',
+                   'client_name.min' => 'il nome del cliente deve avere un minimo di 3 caratteri',
+                   'client_name.max' => 'il nome del cliente deve avere un massimo di 150 caratteri'
+                ]
+            );
+
+
+
+
+
 
 
         $formData = $request->all();
