@@ -24,9 +24,10 @@ Route::middleware(['auth', 'verified'])
 ->name('admin.')
 ->prefix('admin')
 ->group(function() {
-    // Le varie rotte di amministrazione
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('projects', ProjectControl::class);
+    Route::resource('projects', ProjectControl::class)->parameters ([
+        'projects' => 'project:slug' 
+    ]);
 });
 
 Route::middleware('auth')->group(function () {

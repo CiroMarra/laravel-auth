@@ -1,10 +1,8 @@
 @extends('layouts.admin')
 
 @section('content')
-    <h2>{{ $project->title }}</h2>
-
     <div>
-        <strong>Slug</strong>: {{ $project->slug }}
+        <h2>Nome Progetto: {{ $project->name }}</h2>
     </div>
 
     <div>
