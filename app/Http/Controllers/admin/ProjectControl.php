@@ -48,7 +48,8 @@ class ProjectControl extends Controller
              [
                  'name' => 'required|min:5|max:150|unique:projects,name',
                  'summary' => 'min:10|max:500',
-                 'client_name' => 'min:3|max:250'
+                 'client_name' => 'min:3|max:250',
+                 'cover_image' => 'nullable|image|max:512'
              ],
              [
                 'name.required' => 'devi dare un nome al progetto',
@@ -58,7 +59,8 @@ class ProjectControl extends Controller
                 'summary.min' => 'il summary del progetto deve avere una descrizione minima di 10 caratteri',
                 'summary.max' => 'il summary del progetto deve avere una descrizione massima di 500 caratteri',
                 'client_name.min' => 'il nome del cliente deve avere un minimo di 3 caratteri',
-                'client_name.max' => 'il nome del cliente deve avere un massimo di 150 caratteri'
+                'client_name.max' => 'il nome del cliente deve avere un massimo di 150 caratteri',
+                'cover_image' => "l' immagine caricata non deve superare il peso di 512kb "
              ]
          );
 
@@ -122,7 +124,8 @@ class ProjectControl extends Controller
                         Rule::unique('projects')->ignore($project)
                     ],
                     'summary' => 'min:10|max:500',
-                    'client_name' => 'min:3|max:250'
+                    'client_name' => 'min:3|max:250',
+                    'cover_image' => 'nullable|image|max:512'
                 ],
                 [
                    'name.required' => 'devi dare un nome al progetto',
@@ -132,7 +135,8 @@ class ProjectControl extends Controller
                    'summary.min' => 'il summary del progetto deve avere una descrizione minima di 10 caratteri',
                    'summary.max' => 'il summary del progetto deve avere una descrizione massima di 500 caratteri',
                    'client_name.min' => 'il nome del cliente deve avere un minimo di 3 caratteri',
-                   'client_name.max' => 'il nome del cliente deve avere un massimo di 150 caratteri'
+                   'client_name.max' => 'il nome del cliente deve avere un massimo di 150 caratteri',
+                   'cover_image' => "l' immagine caricata non deve superare il peso di 512kb "
                 ]
             );
 
