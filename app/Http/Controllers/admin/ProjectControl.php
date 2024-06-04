@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\project;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectControl extends Controller
 {
@@ -62,7 +63,14 @@ class ProjectControl extends Controller
          );
 
 
+
+
+
         $formData = $request->all();
+        if($request->hasFile('cover_image')) {
+            $img_path = Storage::disk('public')->put('project_images', $formData['cover_image']);
+            $formData['cover_image'] = $img_path;
+        }
         $newProject = new project();
         $newProject->fill($formData);
         $newProject->slug = Str::slug($newProject->name, '-');
@@ -135,6 +143,18 @@ class ProjectControl extends Controller
 
 
         $formData = $request->all();
+
+        if($request->hasFile('cover_image')) {
+
+            if($project->cover_image) {
+                Storage::delete($project->cover_image);
+            }
+            $img_path = Storage::disk('public')->put('project_images', $formData['cover_image']);
+            $formData['cover_image'] = $img_path;
+        }
+
+
+
         $project->slug = Str::slug($formData['name'], '-');
         $project->update($formData);
 

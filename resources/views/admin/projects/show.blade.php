@@ -4,6 +4,11 @@
     <div>
         <h2>Nome Progetto: {{ $project->name }}</h2>
     </div>
+    @if ($project->cover_image)
+        <div>
+            <img src="{{ asset('storage/' . $project->cover_image) }}" alt="{{ $project->title }}">
+        </div>
+    @endif
 
     <div>
         <strong>Created at</strong>: {{ $project->created_at }}
