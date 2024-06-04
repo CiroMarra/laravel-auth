@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    <h1>Tutti i post</h1>
+    <h1>Tutti i progetti</h1>
 
     <table class="table table-striped">
         <thead>

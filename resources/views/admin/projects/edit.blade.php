@@ -18,20 +18,20 @@
         @method('PUT')
 
         <div class="mb-3">
-            <label for="title" class="form-label">Nome progetto</label>
+            <label for="title" class="form-label"><strong>Nome progetto</strong></label>
             <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $project->name) }}">
         </div>
 
         <div class="mb-3">
-            <label for="cover_image" class="form-label">Immagine</label>
+            <label for="cover_image" class="form-label"><strong>Immagine Progetto</strong></label>
             <input class="form-control" type="file" id="cover_image" name="cover_image">
             
             @if ($project->cover_image)
-                <div>
-                    <img width="100" src="{{ asset('storage/' . $project->cover_image) }}" alt="{{ $project->title }}">
+                <div class="my-2">
+                    <img width="240" src="{{ asset('storage/' . $project->cover_image) }}" alt="{{ $project->title }}" >
                 </div>
             @else
-                <small>Nessuna immagine caricata</small>
+                <small class="text-danger">Non c'è nessuna immagine del progetto caricata</small>
             @endif
 
 

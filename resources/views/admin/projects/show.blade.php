@@ -6,20 +6,22 @@
     </div>
     @if ($project->cover_image)
         <div>
-            <img src="{{ asset('storage/' . $project->cover_image) }}" alt="{{ $project->title }}">
+            <img src="{{ asset('storage/' . $project->cover_image) }}" alt="{{ $project->title }}" class="card-img" style="max-width: 340px;">
         </div>
     @endif
 
     <div>
         <strong>Created at</strong>: {{ $project->created_at }}
     </div>
-
-    <div>
-        <strong>Updated at</strong>: {{ $project->updated_at }}
+    <div class="my-3">
+        
+        <div class="my-1">
+            <strong>Summary</strong>: 
+        </div>
+        {{ $project->summary }}
     </div>
-    <div>
-        <strong>Summary</strong>: 
-        <div class="py-5">{{ $project->summary }}</div>
+    <div class="my-5">
+        <small><strong>Last update</strong>: {{ $project->updated_at }}</small>
     </div>
 
     @if ($project->content)
